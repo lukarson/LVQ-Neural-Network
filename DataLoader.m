@@ -2,10 +2,10 @@
 clear;
 format compact;
 nntwarn off;
-load winequality-red.data; % Domyœlnie ³adowany zbiór jakoœci wina
+load winequality-red.data; % Domyslnie ladowany zbior jakosci wina
 
 P = winequality_red(:,1:11)'; % P i T dopasowane do danych WineQuality
-T = winequality_red(:,12)';   % Rozmiary dla innego zbioru bêd¹ siê ró¿niæ
+T = winequality_red(:,12)';   % Rozmiary dla innego zbioru beda sie roznic
 
 % [ [1:11]; min(P'); max(P') ]';
 
