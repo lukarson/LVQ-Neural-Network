@@ -1,17 +1,17 @@
-%%Sieæ LVQ rozpoznaj¹ca jakoœæ wina
+%%Siec LVQ rozpoznajaca jakosc wina
 
 clear;
 format compact;
 nntwarn off;
 load wine_red;
 
-S1 = 170;  %domyœlne wartoœci parametrów
+S1 = 170;  %domyslne wartosci parametrow
 ep = 150;
 learningRate = 0.02;
 reinit = 1;
  
 while(1)
-    %% Podanie liczby neuronów w ukrytej warstwie
+    %% Podanie liczby neuronow w ukrytej warstwie
 
     temp = input(['Input S1 [',int2str(S1),']: ']);
     if ~isempty(temp) 
@@ -27,7 +27,7 @@ while(1)
         clear network;
     end 
 
-    %% Podanie maksymalnej wartosci b³êdu
+    %% Podanie maksymalnej wartosci bledu
 
     temp = input(['Input lr: [',num2str(learningRate),']: ']);
     if ~isempty(temp) 
@@ -35,7 +35,7 @@ while(1)
         clear network;
     end 
 
-    %% Czy reinicjalizowaæ sieæ
+    %% Czy reinicjalizowac siec
 
     if(exist('network','var'))
         retry = input('Reinitialize? (T/N): ', 's'); 
@@ -48,7 +48,7 @@ while(1)
         reinit = 1;
     end 
 
-    %% Postaæ wektorowa, obliczenie sk³adu procentowego klas
+    %% Postac wektorowa, obliczenie skladu procentowego klas
 
     Tvec = ind2vec(Ts);                         
     percentage = (histc(Ts, 1:6) / length(Ts)); 
@@ -66,16 +66,16 @@ while(1)
     network.trainParam.epochs = ep;
     network = train(network, Pns, Tvec);
 
-    %% Symulacja i konwersja wyników do formatu pe³nej macierzy
+    %% Symulacja i konwersja wynikÃ³w do formatu pelnej macierzy
 
     Y = sim(network, Pn);
     Yc = vec2ind(Y);
 
-    %% Porównanie klas. Policzenie b³êdnych klasyfikacji
+    %% Porownanie klas. Policzenie blednych klasyfikacji
 
     results = [T' Yc' (T - Yc)' (abs(T - Yc) > 0.5)'];
 
-    %% Wyœwietlenie finalnej sprawnoœci sieci 
+    %% Wyswietlenie finalnej sprawnosci sieci 
 
     performance = (1 - sum(abs(T - Yc) > 0.5) / length(Pn))*100;
     sprintf('Hidden neurons: %d \nEpochs: %d\nLearning rate: %d\nPerformance: %d\n', S1, ep, learningRate, performance) 
